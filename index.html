@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Market Viewer</title>
+    <link rel="stylesheet" href="global.css">
 </head>
 <header>
     <h2>StockTracker</h3>
-    <div class="portfolio-value">
-        <p>Portfolio value:</p>
-        <h4 id="portfolio-value" >$0.00</h4>
-    </div>
-    <div class="stocks-owned">
-        <p>Stocks Owned:</p>
-        <h4 id="stocks-owned">0</h4>
-    </div>
+    <div class="stats-container">   
+        <div class="portfolio-value">
+            <p>Portfolio value:</p>
+            <h4 id="portfolio-value" >$0.00</h4>
+        </div>
+        <div class="stocks-owned">
+            <p>Stocks Owned:</p>
+            <h4 id="stocks-owned">0</h4>
+        </div>
+    </div> 
 </header>
 <body>
     <section id="search">
@@ -24,20 +27,20 @@
         </div>
         <div class="quick-search">
             <h5>Quick Search:</h5>
-            <button id="rank-one"></button>
-            <button id="rank-two"></button>
-            <button id="rank-three"></button>
-            <button id="rank-four"></button>
-            <button id="rank-five"></button>
+            <button id="rank-one">rank-one</button>
+            <button id="rank-two">rank-one</button>
+            <button id="rank-three">rank-one</button>
+            <button id="rank-four">rank-one</button>
+            <button id="rank-five">rank-one</button>
         </div>    
     </section>
 
     <section id="watchlist">
-        <div class="watchlist-header">
+        <div class="header">
             <h2>Your Watchlist</h2>
             <button>Refresh Prices</button>
         </div>
-        <div class="watchlist-container">
+        <div class="container">
             <img src="" alt="Line Graph">
             <h3>Your watchlist is empty</h3>
             <p>Search for stocks and add them to your watchlist to track their performance</p>
@@ -46,11 +49,11 @@
     </section>
 
     <section id="summary">
-        <div class="summary-header">
+        <div class="header">
             <h2>Portfolio Summary</h2>
             <button>Export Data</button>
         </div>
-        <div class="summary-container">
+        <div class="container">
             <div id="total-value-container">
                 <p>Total Portfolio Value:</p>
                 <h3>$0.00</h3>
