@@ -23,7 +23,7 @@
 </header>
 <body>
     <section id="search">
-        <div class="searchbar">
+        <div id="searchbar">
             <input type="text" id="search-query">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" id="openSearchModal" data-toggle="modal" data-target="#search-result-modal">
@@ -51,39 +51,37 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Select</button>
                 </div>
                 </div>
             </div>
             </div>
         </div>
-        <div class="quick-search">
+        <div id="quick-search">
             <h5>Quick Search:</h5>
-            <button class="top-five" id="rank-one">rank-one</button>
-            <button class="top-five" id="rank-two">rank-one</button>
-            <button class="top-five" id="rank-three">rank-one</button>
-            <button class="top-five" id="rank-four">rank-one</button>
-            <button class="top-five" id="rank-five">rank-one</button>
+            <button type="button" class="btn btn-primary" id="rank-one">rank-one</button>
+            <button type="button" class="btn btn-primary" id="rank-two">rank-two</button>
+            <button type="button" class="btn btn-primary" id="rank-three">rank-three</button>
+            <button type="button" class="btn btn-primary" id="rank-four">rank-four</button>
+            <button type="button" class="btn btn-primary" id="rank-five">rank-five</button>
         </div>    
     </section>
 
     <section id="watchlist">
         <div class="header">
             <h2>Your Watchlist</h2>
-            <button>Refresh Prices</button>
+            <button type="button" class="btn btn-primary" id="refresh-price">Refresh Prices</button>
         </div>
         <div class="container">
             <img src="" alt="Line Graph">
             <h3>Your watchlist is empty</h3>
             <p>Search for stocks and add them to your watchlist to track their performance</p>
         </div>
-
     </section>
 
     <section id="summary">
         <div class="header">
             <h2>Portfolio Summary</h2>
-            <button>Export Data</button>
+            <button type="button" class="btn btn-primary" id="export-data">Export Data</button>
         </div>
         <div class="container">
             <div id="total-value-container">

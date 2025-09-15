@@ -4,7 +4,9 @@ const API_KEY = "YR44JDSUL3UH2TWP";
 export async function fetchStockData(symbol) {
 
   // looks up stock based on stock symbol
-  const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+  //const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+  const url = `global_quote.json`;
+
 
   try {
     const response = await fetch(url);
@@ -27,7 +29,9 @@ export async function fetchStockData(symbol) {
     high: stock["03. high"],
     low: stock["04. low"],
     price: stock["05. price"],
-    previousClose: stock["08. previous close"],
+    volume: stock["06. volume"],
+    latestTradingDay: stock["07. latest trading day"],
+    close: stock["08. previous close"],
     change: stock["09. change"],
     changePercent: stock["10. change percent"]
   };
@@ -51,10 +55,17 @@ export async function getChange(symbol) {
   return stock.changepercent;
 }
 
+export async function getPrice(symbol) {
+  // references previous function to return solely change - will be used for top stock - kind of pointless but did it so I understand minimising repeated code
+  stock = await fetchStockData(symbol)
+  return stock.price;
+}
+
 export async function fetchSearchResults(query) {
 
   // retrieves a list of stocks based on symbol and/or name
-  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${API_KEY}`;
+  //const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${API_KEY}`;
+  const url = `symbol_search.json`;
 
   const response = await fetch(url);
   const data = await response.json();
@@ -75,9 +86,10 @@ export async function fetchSearchResults(query) {
     return results;
 }
 
-export async function fetchTopFive () {
+export async function getTopFive () {
 
-  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${API_KEY}`;
+  //const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${API_KEY}`;
+  const url = `symbol_search.json`;
 
   try {
       const response = await fetch(url);
