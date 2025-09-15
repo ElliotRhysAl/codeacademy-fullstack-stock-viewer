@@ -1,11 +1,14 @@
-header {
+header{
+    background-color: #f8f9fa;
+    border: #777 solid 1px;
+}
+header div {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
-    background-color: #f8f9fa;
     padding: 10px 20px;
-    border-bottom: 1px solid #ccc;
 }
 .stats-container {
     display: flex;
@@ -15,12 +18,12 @@ header {
 .stats-container div {
     display: flex;
     flex-direction: column;
-    align-items: left;
 
+    padding: 5px;
     gap: 5px;
 }
 .stats-container div h4 {
-    margin: 5px;
+    margin-top: auto;
 }
 body section {
     display : flex;
@@ -28,8 +31,8 @@ body section {
 
     padding: 20px;
     margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background-color: #f8f9fa;
+    border: #777 solid 1px;
 }
 #searchbar {
     display: flex;
