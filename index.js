@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // capure search button as const
-    const searchBtn = document.getElementById("openSearchModal");
+    const searchBtn = document.getElementById("search-btn");
     // capture body of modal as const
     const modalBody = document.getElementById("search-result-body");
 
@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <section id="stock-info">
                         <div class="header">
                             <h2>${stock.symbol}</h2>
+                            <button type="button" class="btn btn-primary" id="watch">Watch</button>
                         </div>
                         <div class="stock-container">
                             <div class="container">
@@ -92,31 +93,68 @@ document.addEventListener("DOMContentLoaded", () => {
                     </section>
                     `;
 
-                const searchSection = document.getElementById("search");
-                const stockinfoSection = document.getElementById("stock-info");
+            const searchSection = document.getElementById("search");
+            const stockinfoSection = document.getElementById("stock-info");
 
-                if (stockinfoSection) {
-                    console.log("info section replaced with:", html)
-                    stockinfoSection.outerHTML(html)
-                } else {
-                    searchSection.insertAdjacentHTML("afterend", html);
-                }
+            // ensure that only one stock info section is present at a time        
+            if (stockinfoSection) {
+                console.log("info section replaced with:", html)
+                stockinfoSection.outerHTML(html)
+            } else {
+                 searchSection.insertAdjacentHTML("afterend", html);
+            }
         });
-    }
+    }                     
 });
 
+// event delegation to capture created watch button
+document.body.addEventListener('click', async (event) => {
+    if (event.target && event.target.id === "watch") {
+        const symbol = document.querySelector("#stock-info h2").textContent;
+        console.log("Watch button clicked for:", symbol);
+
+        const stockQuote = await fetchStockData(symbol)
+        const stockInfo = await fetchSearchResults(symbol);
+        const bestMatch = stockInfo[0];
+        console.log("Best match from search results:", bestMatch);
+
+        const watchlist = document.getElementById("watchlist");
+        const stockContainer = watchlist.querySelector('.container');
+        const html = `
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                 <li class="stock" id="${bestMatch.symbol}">
+                    <div>
+                        <strong>${bestMatch.symbol}</strong> <br>
+                        ${bestMatch.name}<br>
+                        Type: ${bestMatch.type}, Region: ${bestMatch.region}, Currency: ${bestMatch.currency}
+                    </div>
+                    <div>
+                        <p class="price" id="${bestMatch.symbol}-price">Price: $${stockQuote.price}</p>
+                        <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>
+                        <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
+                    </div>
+                    <button class="remove" data-symbol="${bestMatch.symbol}" style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+                        remove
+                    </button>
+                </li>
+            </ul>
+        `;
+        stockContainer.innerHTML = ""; // clears existing content to avoid duplicates
+        stockContainer.insertAdjacentHTML("beforeend", html);
+        console.log("Added to watchlist:", html);
+    }
+});  
     
-
-    const refreshBtn = document.getElementById("refresh-price");
-    refreshBtn.addEventListener("click", async () => {
+const refreshBtn = document.getElementById("refresh-price");
+refreshBtn.addEventListener("click", async () => {
         
-        // creates a nodelist of elements with the class stock
-        const nodes = document.querySelectorAll(".stock"); 
-        // makes an array from nodelist of stocks and then picks out those with class of symbol
-        const symbols = Array.from(nodes).map(node => node.querySelector(".symbol").textContent);
+    // creates a nodelist of elements with the class stock
+    const nodes = document.querySelectorAll(".stock"); 
+    // makes an array from nodelist of stocks and then picks out those with class of symbol
+    const symbols = Array.from(nodes).map(node => node.querySelector(".symbol").textContent);
 
-        // forEach on array of symbols
-        symbols.forEach(async symbol => {
+    // forEach on array of symbols
+    symbols.forEach(async symbol => {
         const price = await getPrice(symbol);
 
         // select the correct element to update for each iteration of the loop    

@@ -70,12 +70,36 @@ section .container {
 }
 #watchlist .container {
     flex-direction: column;
-    align-items: center;    
+    justify-content: flex-start;
+    align-items: stretch;    
     text-align: center;
     
     gap: 5px;
     color: #777;
 }
+
+#watchlist .container li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;    
+    text-align: center;
+    
+    background-color: none;
+    gap: 5px;
+}
+#watchlist .container div{
+    display: flex;
+    justify-content: left;
+    align-items: stretch;    
+    text-align: left;
+    
+    background-color: #f8f9fa;
+    border-left: solid #777 1px ;
+    border-radius: 0%;
+}
+
+
 section .container div {
     display: flex;
     flex-direction: column;
@@ -87,7 +111,7 @@ section .container div {
     overflow-wrap: break-word;
 
     background-color: lightblue;
-    border: 1px solid #ddd;
+    
     border-radius: 10%;
     padding: 1rem;
 }
