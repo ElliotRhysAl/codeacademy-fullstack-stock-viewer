@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ensure that only one stock info section is present at a time        
             if (stockinfoSection) {
                 console.log("info section replaced with:", html)
-                stockinfoSection.outerHTML(html)
+                stockinfoSection.outerHTML = html;
             } else {
                  searchSection.insertAdjacentHTML("afterend", html);
             }
