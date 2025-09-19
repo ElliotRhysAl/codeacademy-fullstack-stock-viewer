@@ -147,7 +147,7 @@ document.body.addEventListener('click', async (event) => {
                         <p class="price" id="${bestMatch.symbol}-price">Price: $${stockQuote.price}</p>
                         <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>                            <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
                     </div>
-                    <button class="remove" data-symbol="${bestMatch.symbol}" style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+                    <button class="remove" data-symbol="${bestMatch.symbol}"  style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
                         remove
                     </button>
                 </li>
@@ -171,7 +171,7 @@ document.body.addEventListener('click', async (event) => {
                             <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>
                             <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
                         </div>
-                        <button class="remove" data-symbol="${bestMatch.symbol}" style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+                        <button class="remove" data-symbol="${bestMatch.symbol}"  style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
                             remove
                         </button>
                     </li>
@@ -182,7 +182,25 @@ document.body.addEventListener('click', async (event) => {
             console.log("Added to watchlist:", html);
         }
     }
-});  
+});
+
+document.body.addEventListener('click', async (event) => {
+    if (event.target.classList.contains("remove")) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        const symbol = event.target.getAttribute('data-symbol');
+        console.log("Remove button clicked for:", symbol); 
+        const stockItem = document.getElementById(symbol);
+
+        if (stockItem) {
+            stockItem.parentElement.removeChild(stockItem); // removes the entire stock item from the watchlist - doesn't work yet
+            console.log("Removed stock from watchlist:", symbol);
+        } else {
+            console.log("Stock item not found for removal:", symbol);
+        }
+    }
+});
     
 const refreshBtn = document.getElementById("refresh-price");
 refreshBtn.addEventListener("click", async () => {
