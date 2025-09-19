@@ -120,9 +120,24 @@ document.body.addEventListener('click', async (event) => {
 
         const watchlist = document.getElementById("watchlist");
         const stockContainer = watchlist.querySelector('.container');
-        const html = `
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                 <li class="stock" id="${bestMatch.symbol}">
+        const stockList = watchlist.querySelector('ul');
+        const stocks = stockList ? stockList.querySelectorAll('.stock') : [];
+
+        
+        if (stockList) {
+            console.log("Stocklist already exists. Adding new stock if not duplicate:", bestMatch.symbol);
+
+            // Check for duplicates
+            for (let stock of stocks) { 
+            const stockSymbol = stock.id;
+            if (stockSymbol === bestMatch.symbol) {
+                console.log("Stock already in watchlist:", stockSymbol);
+                return; // Exit the function if duplicate is found
+            }
+        }
+            // If no duplicates, add the new stock
+            const html = `
+                <li class="stock" id="${bestMatch.symbol}">
                     <div>
                         <strong>${bestMatch.symbol}</strong> <br>
                         ${bestMatch.name}<br>
@@ -130,18 +145,42 @@ document.body.addEventListener('click', async (event) => {
                     </div>
                     <div>
                         <p class="price" id="${bestMatch.symbol}-price">Price: $${stockQuote.price}</p>
-                        <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>
-                        <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
+                        <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>                            <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
                     </div>
                     <button class="remove" data-symbol="${bestMatch.symbol}" style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
                         remove
                     </button>
                 </li>
-            </ul>
-        `;
-        stockContainer.innerHTML = ""; // clears existing content to avoid duplicates
-        stockContainer.insertAdjacentHTML("beforeend", html);
-        console.log("Added to watchlist:", html);
+            `;
+            stockList.insertAdjacentHTML("beforeend", html);
+        } 
+        else {
+            console.log("Creating new stocklist with:", bestMatch.symbol);
+            
+            // Create the stocklist and add the first stock
+            const html = `
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li class="stock" id="${bestMatch.symbol}">
+                        <div>
+                            <strong>${bestMatch.symbol}</strong> <br>
+                            ${bestMatch.name}<br>
+                            Type: ${bestMatch.type}, Region: ${bestMatch.region}, Currency: ${bestMatch.currency}
+                        </div>
+                        <div>
+                            <p class="price" id="${bestMatch.symbol}-price">Price: $${stockQuote.price}</p>
+                            <p class="change" id="${bestMatch.symbol}-change">Change: $${stockQuote.change}</p>
+                            <p class="percent-change" id="${bestMatch.symbol}-change-percent">Change Percentage: ${stockQuote.changePercent}%</p>
+                        </div>
+                        <button class="remove" data-symbol="${bestMatch.symbol}" style="padding: 4px 8px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+                            remove
+                        </button>
+                    </li>
+                </ul>
+            `;
+            stockContainer.innerHTML = ""; // clears existing content to avoid duplicates
+            stockContainer.insertAdjacentHTML("beforeend", html);
+            console.log("Added to watchlist:", html);
+        }
     }
 });  
     

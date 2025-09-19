@@ -86,6 +86,7 @@ section .container {
     text-align: center;
     
     background-color: none;
+    margin: 10px;
     gap: 5px;
 }
 #watchlist .container div{
